@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import './ProductList.scss'
 import ProductCard from '../productCard/ProductCard';
 import { ProductContext } from '../../context/ProductProvider';
 import Pagination from '../pagination/Pagination';
-import PropTypes  from 'prop-types';
+// import PropTypes  from 'prop-types';
 
-const ProductList = () => {
+const ProductList:FC = () => {
     const { products } = useContext(ProductContext);
 
-    return (
-        <div className='container'>
+    return <div className='container'>
             <article>
                 <div className='product-wrapper'>
                     {products?.length > 0 && products.map(({ id, ...otherDataPorps }) => (
@@ -19,8 +18,6 @@ const ProductList = () => {
             </article>
             <Pagination/>
         </div>
-    )
-
 }
 // ProductList.propTypes = {
 //     children: PropTypes.element.isRequired

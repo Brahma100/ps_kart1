@@ -1,10 +1,10 @@
 
-import React from "react";
+import React,{FC} from "react";
 import ProductList from "./components/productList/ProductList";
 import CartProvider from "./context/CartProvider";
 import ProductProvider from "./context/ProductProvider";
 
-const App = () => {
+const App:FC = () => {
     return (
         <ProductProvider>
             <CartProvider>

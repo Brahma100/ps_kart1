@@ -1,4 +1,6 @@
-const SHOP_DATA = 
+import { DataType } from "../interfaces/interfaces";
+
+const SHOP_DATA:DataType = 
     {
       items: [
         {

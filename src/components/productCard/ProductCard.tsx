@@ -1,21 +1,26 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { FC, useState, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import './ProductCard.scss';
 import { CartContext } from '../../context/CartProvider';
 
-// interface Props {
-//     id:number;
-//     name: string;
-//     imageUrl: string;
-//     price: number;
-//   }
+interface Props {
+    id: number;
+    name: string;
+    imageUrl: string;
+    price: number;
+}
+interface IStyleVisible {
+    display: string;
+}
 
-const ProductCard = ({ id, name, price, imageUrl }) => {
-    const [style, setStyle] = useState({ display: 'none' });
-    const [quantity, setQuantity] = useState(0);
+
+const ProductCard: FC<Props> = ({ id, name, price, imageUrl }) => {
+
+    const [style, setStyle] = useState<IStyleVisible>({ display: 'none' });
+    const [quantity, setQuantity] = useState<number>(0);
     const { addItemToCart, removeItemFromCart, cartItems } = useContext(CartContext);
     useEffect(() => {
-        const existing = cartItems.find(item => item.id === id);
+        const existing = cartItems.find((item: Props) => item.id === id);
         if (existing)
             setQuantity(existing.quantity);
         else
@@ -41,10 +46,10 @@ const ProductCard = ({ id, name, price, imageUrl }) => {
                 style={style}
             >
                 {quantity > 0 &&
-                    <button className='cart-btn ' onClick={() => addItemToCart({ id, name, price, imageUrl })}>+</button>
+                    <button className='cart-btn ' onClick={(e) => addItemToCart({ id, name, price, imageUrl })}>+</button>
                 }
                 <button
-                    onClick={e => addItemToCart({ id, name, price, imageUrl })}
+                    onClick={() => addItemToCart({ id, name, price, imageUrl })}
                     className='cart-btn '
                 >
                     {quantity > 0 ? `${quantity}` : 'Add to Cart'}
