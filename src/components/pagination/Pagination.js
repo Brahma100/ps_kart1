@@ -1,28 +1,33 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './Pagination.scss'
 import { ProductContext } from '../../context/ProductProvider';
 
 const Pagination = () => {
     const { pageNo, setPageNo, totalItems, dataLimit } = useContext(ProductContext);
-    const [pages] = useState(Math.round(totalItems / dataLimit));
+    const [pages, setPages] = useState(0);
+
+    useEffect(() => {
+        setPages(Math.round(totalItems / dataLimit))
+    }, [totalItems, dataLimit])
 
     const goToNextPage = () => {
-        if(pages>pageNo){
+        console.log("Page No :" + pageNo + "pages:", pages, totalItems, dataLimit);
+        if (pages > pageNo) {
             setPageNo((pageNo) => pageNo + 1);
-            localStorage.setItem('pageNo',pageNo+1)
+            localStorage.setItem('pageNo', pageNo + 1)
         }
     }
 
     const goToPreviousPage = () => {
-        if(pageNo>1){
-        setPageNo((pageNo) => pageNo - 1);
-        localStorage.setItem('pageNo',pageNo-1)
+        if (pageNo > 1) {
+            setPageNo((pageNo) => pageNo - 1);
+            localStorage.setItem('pageNo', pageNo - 1)
         }
     }
     const changePage = (event) => {
         const pageNumber = Number(event.target.textContent);
         setPageNo(pageNumber);
-        localStorage.setItem('pageNo',pageNumber)
+        localStorage.setItem('pageNo', pageNumber)
     }
 
     const getPaginationGroup = () => {

@@ -3,28 +3,28 @@ import { Props, IProduct, ICartItem, CartContextType } from '../interfaces/inter
 
 const addCartItem = (cartItems: ICartItem[], product: IProduct) => {
     const existingCartItem = cartItems.find(
-        (cartItem) => cartItem.id == product.id
+        (cartItem) => cartItem._id === product._id
     )
     if (existingCartItem) {
         return cartItems.map((cartItem) =>
-            cartItem.id === product.id ?
+            cartItem._id === product._id ?
                 { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
         )
     }
     return [...cartItems, { ...product, quantity: 1 }];
 }
 const removeCartItem = (cartItems: ICartItem[], product: IProduct) => {
-    const existingCartItem: ICartItem | undefined = cartItems.find(
-        (cartItem) => cartItem.id == product.id
+    const existingCartItem = cartItems.find(
+        (cartItem) => cartItem._id === product._id
     )
     if (existingCartItem && existingCartItem.quantity > 1) {
         return cartItems.map((cartItem) =>
-            cartItem.id == product.id ?
+            cartItem._id === product._id ?
                 { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
         )
     }
     return cartItems.filter((cartItem) =>
-        cartItem.id !== product.id
+        cartItem._id !== product._id
     )
 }
 
